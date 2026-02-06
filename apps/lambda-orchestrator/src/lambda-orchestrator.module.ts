@@ -12,4 +12,4 @@ import { ConfigModule } from '@nestjs/config';
   controllers: [OrchestController],
   providers: [OrchestService],
 })
-export class OrchestModule {}
+export class LambdaOrchestratorModule {}
