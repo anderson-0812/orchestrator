@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { OrchestModule } from './orchest.module';
+import { OrchestModule } from './lambda-orchestrator.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(OrchestModule);

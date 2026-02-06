@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { OrchestController } from './orchest.controller';
-import { OrchestService } from './orchest.service';
+import { OrchestController } from './lambda-orchestrator.controller';
+import { OrchestService } from './lambda-orchestrator.service';
 import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [

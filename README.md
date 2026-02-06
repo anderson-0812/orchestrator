@@ -41,3 +41,9 @@ libs/
 npm run start:customers
 npm run start:orders
 npm run start:orchestrator
+
+
+# paqueets a instalar para als valdiacioens de dtos type orm y etidades
+npm install @nestjs/typeorm typeorm reflect-metadata
+npm install class-validator class-transformer
+npm install @nestjs/mapped-types

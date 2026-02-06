@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { OrchestController } from './orchest.controller';
-import { OrchestService } from './orchest.service';
+import { OrchestController } from './lambda-orchestrator.controller';
+import { OrchestService } from './lambda-orchestrator.service';
 
 describe('OrchestController', () => {
   let orchestController: OrchestController;

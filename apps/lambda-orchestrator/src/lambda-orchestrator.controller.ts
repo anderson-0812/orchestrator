@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import { OrchestService } from './orchest.service';
+import { OrchestService } from './lambda-orchestrator.service';
 
 @Controller()
 export class OrchestController {

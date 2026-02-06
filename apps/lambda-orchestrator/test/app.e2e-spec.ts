@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { OrchestModule } from './../src/orchest.module';
+import { OrchestModule } from './../src/lambda-orchestrator.module';
 
 describe('OrchestController (e2e)', () => {
   let app: INestApplication;
