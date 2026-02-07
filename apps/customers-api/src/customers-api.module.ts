@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { CustomersController } from './customers-api.controller';
-import { CustomersService } from './customers-api.service';
+import { CustomersApiController } from './customers-api.controller';
+import { CustomersApiService } from './customers-api.service';
 import { ConfigModule } from '@nestjs/config';
 import { CustomersModule } from './modules/admin/customers/customers.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -26,7 +26,7 @@ import { join } from 'path'; // para monorepo
       synchronize: process.env.SYNCHRONIZE === 'TRUE',
     }),
     CustomersModule,],
-  controllers: [CustomersController],
-  providers: [CustomersService],
+  controllers: [CustomersApiController],
+  providers: [CustomersApiService],
 })
 export class CustomersApiModule {}

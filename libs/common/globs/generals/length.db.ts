@@ -6,4 +6,8 @@ export enum LengthDb {
   lastName = 100,
   phone = 22,
   address = 150,
+
+  name = 20,
+  description = 200,
+  code = 20,
 }
