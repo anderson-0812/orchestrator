@@ -7,7 +7,7 @@ import {
   MinLength,
 } from 'class-validator';
 
-export class CreateCustomerDto {
+export class FilterCustomerDto {
   @IsOptional()
   @IsString()
   @MinLength(1)
@@ -17,11 +17,13 @@ export class CreateCustomerDto {
   @IsString()
   @MinLength(1)
   @MaxLength(LengthDb.firtsName)
-  firstName: string;
+  @IsOptional()
+  firstName?: string;
 
   @IsString()
   @MinLength(1)
   @MaxLength(LengthDb.lastName)
+  @IsOptional()
   lastName: string;
 
   @IsOptional()
@@ -34,8 +36,4 @@ export class CreateCustomerDto {
   @MaxLength(LengthDb.phone)
   phone?: string;
 
-  @IsOptional()
-  @IsString()
-  @MaxLength(LengthDb.address)
-  address?: string;
 }
