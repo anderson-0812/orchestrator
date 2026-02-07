@@ -1,9 +1,10 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Index } from "typeorm";
 import { IsPositive } from "class-validator";
 import { LengthDb } from "libs/common/globs/generals/length.db";
 import { OrderProduct } from "../../order-product/entities/order-product.entity";
 
 @Entity()
+@Index(["code", "name"], { unique: true })
 export class Product {
     @PrimaryGeneratedColumn()
     @IsPositive()
