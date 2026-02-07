@@ -3,7 +3,10 @@ import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 import { IsPositive } from "class-validator";
 
 @Entity()
-@Index(["identityCard", "email", "phone"], { unique: true })
+// @Index(["identityCard", "email", "phone"], { unique: true })
+@Index(["identityCard"], { unique: true })
+@Index(["email"], { unique: true })
+@Index(["phone"], { unique: true })
 export class Customer {
     @PrimaryGeneratedColumn()
     @IsPositive()

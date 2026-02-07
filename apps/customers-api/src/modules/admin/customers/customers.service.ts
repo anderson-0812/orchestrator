@@ -17,6 +17,51 @@ export class CustomersService {
   async create(createCustomerDto: CreateCustomerDto) {
     try {
 
+      if(!createCustomerDto.identityCard){
+        throw new HttpException(
+          {
+            errorCode: ErrorCode.ERROR_SERVER,
+            message: 'Debe proporcionar un número de identificación',
+            data: null,
+          },
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      if(!createCustomerDto.email){
+        throw new HttpException(
+          {
+            errorCode: ErrorCode.ERROR_SERVER,
+            message: 'Debe proporcionar un correo electrónico',
+            data: null,
+          },
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      if(!createCustomerDto.phone){
+        throw new HttpException(
+          {
+            errorCode: ErrorCode.ERROR_SERVER,
+            message: 'Debe proporcionar un número de teléfono',
+            data: null,
+          },
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
+      const customerExists = await this.customerRepository.findOne({ where: { identityCard: createCustomerDto.identityCard } });
+      if (customerExists) {
+        throw new HttpException(
+          {
+            errorCode: ErrorCode.ERROR_SERVER,
+            message: 'El cliente ya existe',
+            data: null,
+          },
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+
       const customer = this.customerRepository.create(createCustomerDto);
       const customerCreated = await this.customerRepository.save(customer);
       return { errorCode: ErrorCode.NONE, data: customerCreated, message: 'Clientes creado' };
