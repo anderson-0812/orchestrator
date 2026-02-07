@@ -184,7 +184,7 @@ export class CustomersService {
 
       if (filterCustomerDto.firstName) where.firstName = ILike(`%${filterCustomerDto.firstName}%`);
       if (filterCustomerDto.lastName) where.lastName = ILike(`%${filterCustomerDto.lastName}%`);
-      if (filterCustomerDto.isActive !== undefined && filterCustomerDto.isActive !== null) where.isActive = !!filterCustomerDto.isActive;
+      if (filterCustomerDto.isActive !== undefined && filterCustomerDto.isActive !== null) where.isActive = filterCustomerDto.isActive;
 
 
       const customers = await this.customerRepository.find({ where });

@@ -1,15 +1,19 @@
 import {
   IsString,
   IsInt,
-  IsNumber,
   IsOptional,
-  IsPositive,
   MaxLength,
   Min,
 } from 'class-validator';
 import { LengthDb } from 'libs/common/globs/generals/length.db';
 
 export class CreateProductDto {
+
+  // codIGO DE PRODUCTO 
+  @IsString()
+  @MaxLength(LengthDb.code)
+  sku: string;
+
   @IsString()
   @MaxLength(LengthDb.name)
   name: string;
@@ -19,22 +23,19 @@ export class CreateProductDto {
   @MaxLength(LengthDb.description)
   description?: string;
 
-  @IsString()
-  @MaxLength(LengthDb.code)
-  code: string;
-
   @IsOptional()
   @IsInt()
   @Min(0)
   stock?: number;
 
+  // Precio en centavos ( 1299 CTVS => $12.99)
   @IsOptional()
-  @IsNumber({ maxDecimalPlaces: 2 })
+  @IsInt()
   @Min(0)
-  price?: number;
+  priceCents?: number;
 
   @IsOptional()
-  @IsNumber({ maxDecimalPlaces: 2 })
+  @IsInt()
   @Min(0)
-  discount?: number;
+  discountCents?: number;
 }

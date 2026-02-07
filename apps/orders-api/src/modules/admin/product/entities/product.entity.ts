@@ -1,33 +1,39 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Index } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, Index, CreateDateColumn } from "typeorm";
 import { IsPositive } from "class-validator";
 import { LengthDb } from "libs/common/globs/generals/length.db";
 import { OrderProduct } from "../../order-product/entities/order-product.entity";
 
 @Entity()
-@Index(["code", "name"], { unique: true })
+@Index(["sku"], { unique: true })
 export class Product {
-    @PrimaryGeneratedColumn()
-    @IsPositive()
-    id: number;
+  @PrimaryGeneratedColumn()
+  @IsPositive()
+  id: number;
 
-    @Column("varchar", { length: LengthDb.name, default: "" })
-    name: string;   
+  @Column("varchar", { length: LengthDb.code, default: "" })
+  sku: string; // CODIGO DE PRODUCTO 
 
-    @Column("varchar", { length: LengthDb.description, default: "" })
-    description: string;
+  @Column("varchar", { length: LengthDb.nameLong, default: "" })
+  name: string;
 
-    @Column("varchar", { length: LengthDb.code, default: "" })
-    code: string;
+  @Column("varchar", { length: LengthDb.description, default: "" })
+  description: string;
 
-    @Column("int", { default: 0 })
-    stock: number;
+  @Column("int", { default: 0 })
+  stock: number;
 
-    @Column("decimal", { default: 0, precision: 12, scale: 2 })
-    price: number;
+  @Column("int", { default: 0 })
+  priceCents: number; 
 
-    @Column("decimal", { default: 0, precision: 12, scale: 2 })
-    discount: number;
+  @Column("int", { default: 0 })
+  discountCents: number; 
 
-    @OneToMany(() => OrderProduct, (orderProduct) => orderProduct.product)
-    orderProducts: OrderProduct[];
+  @Column("boolean", { default: true })
+  isActive: boolean; 
+
+  @CreateDateColumn({ type: "timestamp" })
+  createdAt: Date; 
+
+  @OneToMany(() => OrderProduct, (orderProduct) => orderProduct.product)
+  orderProducts: OrderProduct[];
 }
