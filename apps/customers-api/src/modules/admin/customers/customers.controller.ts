@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { CustomersService } from './customers.service';
 import { CreateCustomerDto } from './dto/create-customer.dto';
 import { UpdateCustomerDto } from './dto/update-customer.dto';
@@ -14,8 +14,13 @@ export class CustomersController {
   }
 
   @Get('find-all')
-  findAll() {
-    return this.customersService.findAll();
+  findAll(@Query() filterCustomerDto: FilterCustomerDto) {
+    return this.customersService.findAll(filterCustomerDto);
+  }
+
+  @Get('find-all-total')
+  findAllTotal(@Query() filterCustomerDto: FilterCustomerDto) {
+    return this.customersService.findAllTotal(filterCustomerDto);
   }
 
   @Patch('find-customer-by-parameters')
@@ -33,8 +38,9 @@ export class CustomersController {
     return this.customersService.update(+id, updateCustomerDto);
   }
 
-  @Delete('delete/:id')
-  remove(@Param('id') id: string) {
-    return this.customersService.remove(+id);
+  @Patch('logic-delete/:id')
+  logicDelete(@Param('id') id: string) {
+    return this.customersService.logicDelete(+id);
   }
+
 }

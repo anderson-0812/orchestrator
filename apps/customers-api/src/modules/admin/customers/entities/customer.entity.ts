@@ -3,6 +3,7 @@ import { Column, Entity, Index, PrimaryGeneratedColumn } from "typeorm";
 import { IsPositive } from "class-validator";
 
 @Entity()
+@Index(["identityCard", "email", "phone"], { unique: true })
 export class Customer {
     @PrimaryGeneratedColumn()
     @IsPositive()
@@ -28,5 +29,8 @@ export class Customer {
 
     @Column("varchar", { length: LengthDb.address, nullable: true })
     address: string;
+
+    @Column("boolean", { default: true })
+    isActive: boolean;
 }
 
