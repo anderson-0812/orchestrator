@@ -37,7 +37,7 @@ export class CustomersService {
 
   async findAll(filterCustomerDto: FilterCustomerDto) {
     try {
-      const { limit = 20, cursor, search = '', isActive = true } = filterCustomerDto;
+      const { limit = 20, cursor, search = '', isActive=null } = filterCustomerDto;
 
       let searchWhere = search
         ? [
@@ -50,7 +50,7 @@ export class CustomersService {
         : [{}];
 
       if (isActive !== undefined && isActive !== null) {
-        searchWhere = [...searchWhere, { isActive: !!isActive }];
+        searchWhere = [...searchWhere, { isActive: isActive }];
       }
 
       const where = cursor
@@ -60,6 +60,7 @@ export class CustomersService {
         }))
         : searchWhere;
 
+      console.log(where);
       const customers = await this.customerRepository.find({
         where,
         take: Number(limit) + 1, // +1 para saber si hay siguiente pagina 
@@ -95,9 +96,9 @@ export class CustomersService {
 
   async findAllTotal(filterCustomerDto: FilterCustomerDto) {
     try {
-      const { search = '' } = filterCustomerDto;
+      const { search = '', isActive=null } = filterCustomerDto;
 
-      const where = search
+      let where = search
         ? [
           { identityCard: ILike(`%${search}%`) },
           { email: ILike(`%${search}%`) },
@@ -106,6 +107,11 @@ export class CustomersService {
           { lastName: ILike(`%${search}%`) },
         ]
         : {};
+
+      if (isActive !== undefined && isActive !== null) {
+        where = Array.isArray(where) ? [...where, { isActive: isActive }] : { ...where, isActive: isActive };
+      }
+
       const customers = await this.customerRepository.count({
         where: where,
       });
