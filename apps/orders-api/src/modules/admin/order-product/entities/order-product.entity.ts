@@ -1,8 +1,15 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn, JoinColumn, Index } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  JoinColumn,
+  Index,
+} from 'typeorm';
 import { Product } from '../../product/entities/product.entity';
 import { Order } from '../../order/entities/order.entity';
 
-@Entity()
+@Entity({ name: 'order_items' }) // nombre real en DB 
 @Index(['orderId', 'productId'], { unique: true })
 export class OrderProduct {
   @PrimaryGeneratedColumn()
@@ -15,12 +22,17 @@ export class OrderProduct {
   productId: number;
 
   @Column({ type: 'int' })
-  quantity: number;
+  qty: number; // cantidad
 
-  @Column('decimal', { precision: 12, scale: 2 })
-  price: number;
+  @Column({ type: 'int' })
+  unitPriceCents: number; // precio al momento de la compra
 
-  @ManyToOne(() => Order, (order) => order.orderProducts, { onDelete: 'CASCADE' })
+  @Column({ type: 'int' })
+  subtotalCents: number; // cantidad * unitPriceCents
+
+  @ManyToOne(() => Order, (order) => order.orderProducts, {
+    onDelete: 'CASCADE',
+  })
   @JoinColumn({ name: 'orderId' })
   order: Order;
 

@@ -43,4 +43,11 @@ export class CustomersController {
     return this.customersService.logicDelete(+id);
   }
 
+  // Endpoint interno para validación desde Orders API
+  @Get('internal/customers/:id')
+  findOneInternal(@Param('id') id: string) {
+    // NOTA: AUN no valido el SERVICE_TOKEN del header
+    return this.customersService.findOne(+id);
+  }
+
 }

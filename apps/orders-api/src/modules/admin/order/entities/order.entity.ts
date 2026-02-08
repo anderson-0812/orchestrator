@@ -1,31 +1,45 @@
-import { Column, Entity, Index, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  Index,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+} from "typeorm";
 import { IsPositive } from "class-validator";
 import { StatusOrder } from "libs/common/globs/generals/status-order";
 import { OrderProduct } from "../../order-product/entities/order-product.entity";
 
-
 @Entity()
 export class Order {
-    @PrimaryGeneratedColumn()
-    @IsPositive()
-    id: number;
+  @PrimaryGeneratedColumn()
+  @IsPositive()
+  id: number;
 
-    @Column('int', { default: 0 })
-    cantProducts: number;
+  @Column('int')
+  @Index()
+  customerId: number; 
 
-    @Column("decimal", { default: 0, precision: 12, scale: 2 })
-    totalPrice: number;
+  @Column('int', { default: 0 })
+  totalCents: number; 
 
-    @Column("varchar", { length: 20 })
-    nroOrder: string;
+  @Column({
+    type: 'int',
+    default: StatusOrder.CREATED,
+  })
+  @Index()
+  status: StatusOrder;
 
-    @Column({
-        type: 'int',
-        default: StatusOrder.CREATED,
-    })
-    @Index()
-    status: StatusOrder;
+  @Column('int', { default: 0 }) 
+  cantProducts: number;
+  
+  @Column("varchar", { length: 20 }) 
+  nroOrder: string;
 
-    @OneToMany(() => OrderProduct, (orderProduct) => orderProduct.order)
-    orderProducts: OrderProduct[];
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @OneToMany(() => OrderProduct, (op) => op.order)
+  orderProducts: OrderProduct[];
+
 }

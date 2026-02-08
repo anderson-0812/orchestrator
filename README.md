@@ -48,7 +48,7 @@ npm install @nestjs/typeorm typeorm reflect-metadata
 npm install class-validator class-transformer
 npm install @nestjs/mapped-types
 npm install mysql2
-
+npm install axios
 
 # para generar un modulo completo en un microservicio
 cd apps/customers-api
