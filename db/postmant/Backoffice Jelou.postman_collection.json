@@ -1,0 +1,518 @@
+{
+  "info": {
+    "_postman_id": "299e9d74-0bc0-4a31-a30b-f120df235bca",
+    "name": "Backoffice Jelou",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "9097434",
+    "_collection_link": "https://go.postman.co/collection/9097434-299e9d74-0bc0-4a31-a30b-f120df235bca?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "customer",
+      "item": [
+        {
+          "name": "find-customer-by-parameters",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer ",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"firstName\": \"and\",\r\n   \"lastName\": \"jim\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3001/admin/customers/find-customer-by-parameters",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3001",
+              "path": [
+                "admin",
+                "customers",
+                "find-customer-by-parameters"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "create-customer",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"identityCard\": \"1109978887\",\r\n  \"firstName\": \"Luis\",\r\n  \"lastName\": \"Mendoza\",\r\n  \"email\": \"luiiisa.mendoza@mail.com\",\r\n  \"phone\": \"0954446322\",\r\n  \"address\": \"Centro histórico\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3001/admin/customers/create-customer",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3001",
+              "path": [
+                "admin",
+                "customers",
+                "create-customer"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "find-all",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/admin/customers/find-all?limit=20&isActive=1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3001",
+              "path": [
+                "admin",
+                "customers",
+                "find-all"
+              ],
+              "query": [
+                {
+                  "key": "firstName",
+                  "value": "and",
+                  "disabled": true
+                },
+                {
+                  "key": "lastName",
+                  "value": "jim",
+                  "disabled": true
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                },
+                {
+                  "key": "cursor",
+                  "value": "",
+                  "disabled": true
+                },
+                {
+                  "key": "isActive",
+                  "value": "1"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "find-all-total",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/admin/customers/find-all-total?firstName=and&lastName=jim\n&isActive=0",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3001",
+              "path": [
+                "admin",
+                "customers",
+                "find-all-total"
+              ],
+              "query": [
+                {
+                  "key": "firstName",
+                  "value": "and"
+                },
+                {
+                  "key": "lastName",
+                  "value": "jim\n"
+                },
+                {
+                  "key": "isActive",
+                  "value": "0",
+                  "type": "text"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "find-one",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"firstName\": \"Anderson E.\",\r\n  \"phone\": \"0988888888\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3001/admin/customers/find-one/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3001",
+              "path": [
+                "admin",
+                "customers",
+                "find-one",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"firstName\": \"Anderson E.\",\r\n  \"lastName\": \"Jimenez\",\r\n  \"email\": \"anderson.e@gmail.com\",\r\n  \"phone\": \"0988888888\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3001/admin/customers/update/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3001",
+              "path": [
+                "admin",
+                "customers",
+                "update",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "logic-delete",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3001/admin/customers/logic-delete/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3001",
+              "path": [
+                "admin",
+                "customers",
+                "logic-delete",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "order",
+      "item": [
+        {
+          "name": "Product",
+          "item": [
+            {
+              "name": "create-product",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"sku\": \"SKU-MOUSE-001\",\r\n  \"name\": \"Mouse Logitech\",\r\n  \"description\": \"Mouse inalámbrico\",\r\n  \"stock\": 100,\r\n  \"priceCents\": 1599,\r\n  \"discountCents\": 0\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3002/admin/products/create-product",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3002",
+                  "path": [
+                    "admin",
+                    "products",
+                    "create-product"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "find-all",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3002/admin/products/find-all?limit=10&search=laptop&isActive=1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3002",
+                  "path": [
+                    "admin",
+                    "products",
+                    "find-all"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "key": "search",
+                      "value": "laptop"
+                    },
+                    {
+                      "key": "isActive",
+                      "value": "1"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "1",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "find-all-total",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3002/admin/products/find-all-total?isActive=1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3002",
+                  "path": [
+                    "admin",
+                    "products",
+                    "find-all-total"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "laptop",
+                      "disabled": true
+                    },
+                    {
+                      "key": "isActive",
+                      "value": "1"
+                    }
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "find-product-by-parameters",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"search\": \"Laptop\",\r\n  \"isActive\": true\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3002/admin/products/find-product-by-parameters",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3002",
+                  "path": [
+                    "admin",
+                    "products",
+                    "find-product-by-parameters"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "find-one",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3002/admin/products/find-one/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3002",
+                  "path": [
+                    "admin",
+                    "products",
+                    "find-one",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "update",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"name\": \"Laptop Lenovo (Actualizada)\",\r\n  \"stock\": 30,\r\n  \"priceCents\": 135000,\r\n  \"discountCents\": 5000\r\n}\r\n",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3002/admin/products/update/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3002",
+                  "path": [
+                    "admin",
+                    "products",
+                    "update",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "logic-delete",
+              "request": {
+                "method": "PATCH",
+                "header": [],
+                "url": {
+                  "raw": "http://localhost:3002/admin/products/logic-delete/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3002",
+                  "path": [
+                    "admin",
+                    "products",
+                    "logic-delete",
+                    "1"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "orchestrator lambda",
+      "item": [
+        {
+          "name": "create-and-confirm-order",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer{{serviceToken}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "    {\r\n    \"customer_id\": 1,\r\n    \"items\": [\r\n        {\r\n        \"product_id\": 2,\r\n        \"qty\": 2\r\n        },\r\n        {\r\n        \"product_id\": 1,\r\n        \"qty\": 1\r\n        }\r\n    ],\r\n    \"idempotency_key\": \"order-001-test3\",\r\n    \"correlation_id\": \"corr-postman-003\"\r\n    }\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3010/orchestrator/create-and-confirm-order",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3010",
+              "path": [
+                "orchestrator",
+                "create-and-confirm-order"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
