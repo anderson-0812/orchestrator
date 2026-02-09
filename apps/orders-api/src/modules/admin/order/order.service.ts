@@ -40,7 +40,7 @@ export class OrderService {
       let customer;
       try {
         const customerResponse = await axios.get(
-          `${customersApiUrl}/internal/customers/${createOrderDto.customer_id}`,
+          `${customersApiUrl}/admin/customers/internal/customers/${createOrderDto.customer_id}`,
           {
             headers: { Authorization: `Bearer ${serviceToken}` },
           }
@@ -117,7 +117,7 @@ export class OrderService {
       }
 
       // 3. Crear orden
-      const nroOrder = `ORD-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+      const nroOrder = `ORD-${Date.now().toString().slice(-10)}`;
       const order = queryRunner.manager.create(Order, {
         customerId: createOrderDto.customer_id,
         totalCents,

@@ -1,0 +1,300 @@
+openapi: 3.0.3
+info:
+  title: Customers API
+  description: |
+    API REST para gestión de clientes.
+    Parte del sistema de orquestración de pedidos B2B.
+  version: 1.0.0
+  contact:
+    name: Equipo de Desarrollo
+    email: dev@orchestrator.com
+
+servers:
+  - url: http://localhost:3001
+    description: Desarrollo local
+  - url: https://api.orchestrator.com
+    description: Producción
+
+tags:
+  - name: Customers
+    description: Gestión de clientes
+
+paths:
+  /admin/customers/create-customer:
+    post:
+      tags:
+        - Customers
+      summary: Crear nuevo cliente
+      description: Registra un nuevo cliente en el sistema
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCustomerRequest'
+            examples:
+              basic:
+                summary: Cliente básico
+                value:
+                  name: ACME Corporation
+                  email: ops@acme.com
+                  phone: '+1234567890'
+      responses:
+        '201':
+          description: Cliente creado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerResponse'
+        '400':
+          description: Datos inválidos o email duplicado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /admin/customers/find-all:
+    get:
+      tags:
+        - Customers
+      summary: Listar clientes
+      description: Obtiene lista paginada de clientes con búsqueda opcional
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+          description: Término de búsqueda por nombre o email
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            default: 20
+          description: Cantidad de resultados
+        - name: cursor
+          in: query
+          schema:
+            type: integer
+          description: ID desde donde continuar la paginación
+      responses:
+        '200':
+          description: Lista de clientes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerListResponse'
+
+  /admin/customers/find-one/{id}:
+    get:
+      tags:
+        - Customers
+      summary: Obtener cliente por ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Detalle del cliente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerResponse'
+        '404':
+          description: Cliente no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+  /admin/customers/update/{id}:
+    patch:
+      tags:
+        - Customers
+      summary: Actualizar cliente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateCustomerRequest'
+      responses:
+        '200':
+          description: Cliente actualizado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerResponse'
+
+  /admin/customers/logic-delete/{id}:
+    patch:
+      tags:
+        - Customers
+      summary: Eliminar cliente (soft delete)
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Cliente eliminado exitosamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerResponse'
+
+  /admin/customers/internal/customers/{id}:
+    get:
+      tags:
+        - Customers
+      summary: Obtener cliente (endpoint interno)
+      description: |
+        Endpoint interno utilizado por Orders API para validar clientes.
+        Requiere autenticación mediante SERVICE_TOKEN.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: Authorization
+          in: header
+          required: true
+          schema:
+            type: string
+          description: Bearer token de servicio
+          example: Bearer internal-service-token
+      responses:
+        '200':
+          description: Detalle del cliente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerResponse'
+        '401':
+          description: No autorizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+
+components:
+  schemas:
+    CreateCustomerRequest:
+      type: object
+      required:
+        - name
+        - email
+        - phone
+      properties:
+        name:
+          type: string
+          minLength: 1
+          description: Nombre del cliente
+          example: ACME Corporation
+        email:
+          type: string
+          format: email
+          description: Email único del cliente
+          example: ops@acme.com
+        phone:
+          type: string
+          description: Teléfono de contacto
+          example: '+1234567890'
+
+    UpdateCustomerRequest:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        email:
+          type: string
+          format: email
+        phone:
+          type: string
+
+    CustomerResponse:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          example: 0
+        message:
+          type: string
+          example: Cliente encontrado
+        data:
+          $ref: '#/components/schemas/Customer'
+
+    Customer:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        name:
+          type: string
+          example: ACME Corporation
+        email:
+          type: string
+          example: ops@acme.com
+        phone:
+          type: string
+          example: '+1234567890'
+        isActive:
+          type: boolean
+          example: true
+        createdAt:
+          type: string
+          format: date-time
+          example: '2026-02-08T00:00:00.000Z'
+
+    CustomerListResponse:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          example: 0
+        message:
+          type: string
+          example: Clientes encontrados
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Customer'
+        meta:
+          type: object
+          properties:
+            limit:
+              type: integer
+              example: 20
+            cursor:
+              type: integer
+              nullable: true
+            nextCursor:
+              type: integer
+              nullable: true
+            hasNext:
+              type: boolean
+
+    ErrorResponse:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+          example: 500
+        message:
+          type: string
+          example: Error en el servidor
+        data:
+          nullable: true

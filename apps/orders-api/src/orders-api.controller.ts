@@ -9,4 +9,13 @@ export class OrdersApiController {
   getHello(): string {
     return this.ordersApiService.getHello();
   }
+
+  @Get('health')
+  health() {
+    return {
+      status: 'OK',
+      message: 'Orders API is running',
+      timestamp: new Date().toISOString(),
+    };
+  }
 }

@@ -54,3 +54,9 @@ pids
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Lambda Orchestrator
+/apps/lambda-orchestrator/.serverless
+/apps/lambda-orchestrator/.env
+/apps/lambda-orchestrator/node_modules
+
